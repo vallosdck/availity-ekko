@@ -8,6 +8,7 @@ var Configuration = function() {
   this.app = null;
   this.router = null;
   this.routes = [];
+  this.eventEmitter = null;
   this.path = null;
   this.addressInUse = null;
 };

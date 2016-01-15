@@ -5,12 +5,19 @@ var BPromise = require('bluebird');
 var logger = require('./logger');
 var config = require('./config');
 var middleware = require('./middleware');
+var events = require('events');
 
 var Ekko = module.exports = function(configPath) {
   this._configPath = configPath;
+
+  config.eventEmitter = new events.EventEmitter();
 };
 
 var proto = Ekko.prototype;
+
+proto.on = function(event, callback) {
+  config.eventEmitter.on(event, callback);
+}
 
 proto.start = function(options) {
 

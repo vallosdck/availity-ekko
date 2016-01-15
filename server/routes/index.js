@@ -42,6 +42,11 @@ var _routes = {
     _.each(methods, function(method) {
       // builds get|post|put|delete routes like /v1/payers
       router[method](route.url, function(req, res, next) {
+
+        config.eventEmitter.emit('request', {
+          req: req
+        });
+
         // get from cache and attach to request local
         res.locals.route = config.routes[route.id];
         response.send(req, res, next);
