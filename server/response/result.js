@@ -71,8 +71,6 @@ var result =  {
     // return the appropriate response object
     response = request.responses[responseIndex];
 
-    console.log(config);
-
     config.eventEmitter.emit('response', {
       req: req,
       res: response,
