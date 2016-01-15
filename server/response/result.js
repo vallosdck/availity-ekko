@@ -8,7 +8,7 @@ var result =  {
 
   cache: {},
 
-  file: function(res, response) {
+  file: function(req, res, response) {
     BPromise.delay(response.latency || 200).then(function() {
 
       var filePath = path.join(config.options.data, response.file);
@@ -19,10 +19,10 @@ var result =  {
       }
 
       config.eventEmitter.emit('response', {
-      req: req,
-      res: response,
-      file: filePath
-    });
+        req: req,
+        res: response,
+        file: filePath
+      });
 
       res.status(status).sendFile(filePath, function(err) {
         if (err) {
@@ -83,7 +83,7 @@ var result =  {
     response = request.responses[responseIndex];
 
     if (response.file) {
-      this.file(res, response);
+      this.file(req, res, response);
       return;
     }
 
