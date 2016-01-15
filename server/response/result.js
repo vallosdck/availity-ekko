@@ -35,7 +35,7 @@ var result =  {
     });
   },
 
-  url: function(res, response) {
+  url: function(req, res, response) {
     config.eventEmitter.emit('redirect', {
       req: req,
       res: response
@@ -87,7 +87,7 @@ var result =  {
       return;
     }
 
-    this.url(res, response);
+    this.url(req, res, response);
 
   }
 };
