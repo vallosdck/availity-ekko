@@ -18,6 +18,12 @@ var result =  {
         res.set(response.headers);
       }
 
+      config.eventEmitter.emit('response', {
+      req: req,
+      res: response,
+      file: filePath
+    });
+
       res.status(status).sendFile(filePath, function(err) {
         if (err) {
           logger.error('{red:FILE {cyan:%s} {bold:NOT FOUND}', filePath);
@@ -30,6 +36,11 @@ var result =  {
   },
 
   url: function(res, response) {
+    config.eventEmitter.emit('redirect', {
+      req: req,
+      res: response
+    });
+
     res.redirect(response.url);
   },
 
@@ -71,14 +82,7 @@ var result =  {
     // return the appropriate response object
     response = request.responses[responseIndex];
 
-    config.eventEmitter.emit('response', {
-      req: req,
-      res: response,
-      file: path.join(config.options.data, response.file)
-    });
-
     if (response.file) {
-
       this.file(res, response);
       return;
     }
