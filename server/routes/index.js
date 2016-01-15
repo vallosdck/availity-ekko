@@ -22,6 +22,13 @@ var _routes = {
       var route = new Route(url, endpoint);
       self.add(route);
     });
+
+    config.app.use(function(req, res, next) {
+      config.eventEmitter.emit('error', {
+          req: req
+        });
+      next();
+    });
   },
 
   /**
